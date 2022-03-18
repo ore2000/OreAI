@@ -165,7 +165,7 @@ class oreAI:
         y = self.activation(z)
         return z,y
         
-    def forward_prop(self,input_arr):
+    def forward_calc(self,input_arr):
         '''This function is used to carry out forward propagation'''
         
         self.input_array = input_arr
