@@ -4,7 +4,7 @@ Created on Thu Mar 17 09:45:53 2022
 
 @author: Oreoluwa Adeola Babatunde
 
-This code is to help easily get into machine learning programming without having to use things like tensorflow with huge dependencies.
+This code is to help get a basic machine learning model up and running without having to use things like tensorflow.
 
 Dependecnes for running class:
     1. numpy
