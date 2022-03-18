@@ -27,6 +27,12 @@ class oreAI:
         #create a dictionary of all weights for each layer in the neural network without biases.
         self.weights = {}
         
+        #variable to save the local induced fields of the network.
+        self.z = {}
+        
+        #variable to save the output of the layers after the activation function has been applied
+        self.y_pred = {}
+        
         #initialize a variable to keep track of the number of hidde layers in the structure
         self.number_of_hidden_layers = 0
         
@@ -37,10 +43,14 @@ class oreAI:
         self.num_inputs = number_of_inputs
         
         #create an array to store the inputs. We add one for the bias
-        input_array = np.empty(self.num_inputs + 1, dtype = np.float32)
+        self.input_array = np.empty(self.num_inputs + 1, dtype = np.float32)
         
         print("creation of the input layer is done")
         
+    def activation(self,weighted_sum):
+        '''This is the activation functions used for the structure'''
+        
+        return 0
         
     def input_layer(self, number_of_nodes):
         '''Create the input layer of the machine learning model'''
@@ -143,6 +153,30 @@ class oreAI:
         
         print("Output layer has been added.")
         
+    def forward_prop(self,input_vector, weights_matrix):
+        '''This function is used to Crry out forqard propagation'''
+        #list of the weighted sum of the layer
+        z = []
+        #list of the output of the layer after activation function
+        y = []
+        
+        z = np.dot(weights_matrix,input_vector)
+        
+        y = self.activation(z)
+        return z,y
+        
+    def forward_prop(self,input_arr):
+        '''This function is used to carry out forward propagation'''
+        
+        self.input_array = input_arr
+        
+        for i in range(self.number_of_hidden_layers + 2):
+            if i == 0:
+               self.z[0],self.y_pred[0] = self.forward_prop(self.input_array, self.weights_bias[0])
+            else:
+                self.z[i],self.y_pred[i] = self.forward_prop(self.y_pred[i - 1], self.weights_bias[i])
+        
+        
     
         
 if __name__=='__main__':
@@ -150,6 +184,8 @@ if __name__=='__main__':
     ml.input_layer(6)
     ml.add_layer(4)
     ml.add_layer(3)
+    ml.add_layer(3)
     ml.add_output_layer(1)
     print(ml.weights_bias)
+    print(ml.number_of_hidden_layers)
         
